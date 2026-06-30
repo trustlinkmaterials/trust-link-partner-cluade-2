@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Claude Code 導入支援｜Trust Link Partner 株式会社</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=Noto+Serif+JP:wght@700;900&display=swap');
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root { --black: #0a0a0a; --red: #c0392b; --white: #fff; --gray: #5a5a5a; --gray-light: #f4f4f4; --gray-border: #e0e0e0; --text: #1a1a1a; }
+  body { font-family: 'Noto Sans JP', sans-serif; background: var(--white); color: var(--text); }
+
+  /* ===== PAGE ===== */
+  .sheet {
+    width: 210mm;
+    min-height: 297mm;
+    margin: 0 auto;
+    padding: 0;
+    page-break-after: always;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ===== PAGE 1 ===== */
+  .p1-head {
+    background: var(--black);
+    padding: 36px 48px 32px;
+    position: relative;
+    overflow: hidden;
+  }
+  .p1-head::after {
+    content: '';
+    position: absolute;
+    right: -40px; top: -40px;
+    width: 220px; height: 220px;
+    border-radius: 50%;
+    border: 1px solid rgba(192,57,43,0.25);
+  }
+  .eyebrow { font-size: 10px; letter-spacing: 0.2em; color: var(--red); margin-bottom: 10px; }
+  .p1-title { font-family: 'Noto Serif JP', serif; font-size: 28px; font-weight: 900; color: var(--white); line-height: 1.4; margin-bottom: 8px; }
+  .p1-title em { color: var(--red); font-style: normal; }
+  .p1-sub { font-size: 12px; color: rgba(255,255,255,0.5); line-height: 1.8; }
+
+  .p1-body { padding: 32px 48px; flex: 1; display: flex; flex-direction: column; gap: 24px; }
+
+  .block-title {
+    font-size: 10px; letter-spacing: 0.15em; color: var(--red); font-weight: 700;
+    border-left: 3px solid var(--red); padding-left: 10px; margin-bottom: 12px;
+  }
+
+  /* 2col threat */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .threat-card { border: 1px solid var(--gray-border); border-top: 2px solid var(--red); padding: 16px; }
+  .threat-num { font-family: 'Noto Serif JP', serif; font-size: 28px; font-weight: 900; color: var(--red); line-height: 1; margin-bottom: 4px; }
+  .threat-label { font-size: 10px; color: var(--gray); margin-bottom: 6px; }
+  .threat-desc { font-size: 11px; line-height: 1.7; }
+
+  /* diff */
+  .diff-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .diff-no { background: var(--gray-light); border: 1px solid var(--gray-border); padding: 16px; }
+  .diff-yes { background: var(--black); border: 1px solid var(--red); padding: 16px; }
+  .diff-head { font-size: 10px; font-weight: 700; margin-bottom: 10px; }
+  .diff-no .diff-head { color: var(--gray); }
+  .diff-yes .diff-head { color: var(--red); }
+  .diff-item { font-size: 11px; display: flex; gap: 6px; margin-bottom: 6px; line-height: 1.5; }
+  .diff-no .diff-item { color: var(--gray); }
+  .diff-yes .diff-item { color: rgba(255,255,255,0.8); }
+
+  /* quote strip */
+  .quote-strip {
+    background: var(--black);
+    padding: 20px 48px;
+    font-family: 'Noto Serif JP', serif;
+    font-size: 16px;
+    font-weight: 900;
+    color: var(--white);
+    line-height: 1.7;
+    border-left: 4px solid var(--red);
+  }
+  .quote-strip em { color: var(--red); font-style: normal; }
+
+  /* ===== PAGE 2 ===== */
+  .p2-head {
+    background: var(--red);
+    padding: 28px 48px;
+  }
+  .p2-head-title { font-family: 'Noto Serif JP', serif; font-size: 22px; font-weight: 900; color: var(--white); line-height: 1.4; }
+  .p2-head-sub { font-size: 12px; color: rgba(255,255,255,0.75); margin-top: 6px; }
+
+  .p2-body { padding: 32px 48px; flex: 1; display: flex; flex-direction: column; gap: 28px; }
+
+  /* sessions */
+  .sessions { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+  .session-card { border: 1px solid var(--gray-border); padding: 16px 14px; }
+  .session-num { font-size: 9px; letter-spacing: 0.15em; color: var(--red); font-weight: 700; margin-bottom: 6px; }
+  .session-title { font-size: 12px; font-weight: 700; margin-bottom: 6px; line-height: 1.4; }
+  .session-desc { font-size: 10px; color: var(--gray); line-height: 1.6; }
+
+  /* pricing */
+  .pricing-row { display: grid; grid-template-columns: 1.5fr 1fr; gap: 16px; }
+  .price-main { border: 2px solid var(--red); padding: 24px; }
+  .price-sub { border: 1px solid var(--gray-border); border-top: 2px solid var(--gray); padding: 20px; }
+  .price-badge { display: inline-block; background: var(--red); color: var(--white); font-size: 9px; font-weight: 700; padding: 3px 10px; letter-spacing: 0.1em; margin-bottom: 8px; }
+  .price-name { font-size: 12px; font-weight: 700; margin-bottom: 4px; }
+  .price-amount { font-family: 'Noto Serif JP', serif; font-size: 34px; font-weight: 900; line-height: 1; }
+  .price-unit { font-size: 11px; color: var(--gray); margin-top: 2px; margin-bottom: 12px; }
+  .price-list { list-style: none; }
+  .price-list li { font-size: 10px; color: var(--gray); padding-left: 10px; position: relative; line-height: 1.8; }
+  .price-list li::before { content: '–'; position: absolute; left: 0; color: var(--red); }
+
+  /* examples */
+  .example-box { background: var(--gray-light); border: 1px solid var(--gray-border); padding: 16px 20px; }
+  .example-title { font-size: 10px; color: var(--red); font-weight: 700; margin-bottom: 6px; }
+  .example-text { font-size: 11px; color: var(--gray); line-height: 1.8; }
+
+  /* CTA block */
+  .cta-block { background: var(--black); padding: 24px 28px; display: flex; justify-content: space-between; align-items: center; }
+  .cta-left-title { font-family: 'Noto Serif JP', serif; font-size: 16px; font-weight: 900; color: var(--white); line-height: 1.5; margin-bottom: 6px; }
+  .cta-left-sub { font-size: 11px; color: rgba(255,255,255,0.5); }
+  .cta-contact { text-align: right; }
+  .cta-co { font-size: 10px; color: var(--red); font-weight: 700; letter-spacing: 0.05em; margin-bottom: 6px; }
+  .cta-info { font-size: 13px; font-weight: 700; color: var(--white); line-height: 1.8; }
+  .cta-note { font-size: 10px; color: rgba(255,255,255,0.4); margin-top: 4px; }
+
+  .footer2 { padding: 14px 48px; border-top: 1px solid var(--gray-border); display: flex; justify-content: space-between; }
+  .footer2 span { font-size: 10px; color: var(--gray); }
+
+  @media print {
+    body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .sheet { margin: 0; width: 100%; }
+  }
+  @media screen {
+    body { background: #ddd; padding: 20px 0; }
+    .sheet { box-shadow: 0 2px 20px rgba(0,0,0,0.15); margin-bottom: 24px; background: var(--white); }
+  }
+</style>
+</head>
+<body>
+
+<!-- ========== PAGE 1 ========== -->
+<div class="sheet">
+  <div class="p1-head">
+    <div class="eyebrow">Trust Link Partner 株式会社 · パチンコホール運営企業向け</div>
+    <div class="p1-title">今日が、<em>一番早い。</em><br>Claude Code 導入支援 &amp; 内製化伴走プログラム</div>
+    <div class="p1-sub">「先に動いた企業」と「様子見を続けた企業」には、すでに大きな差が生まれています。<br>今日からでも遅くはありません。見送る判断にも、将来コストは発生します。</div>
+  </div>
+
+  <div class="p1-body">
+
+    <!-- 負債ブロック -->
+    <div>
+      <div class="block-title">なぜ今か — 見えていないコストと、広がる差</div>
+      <div class="two-col">
+        <div class="threat-card">
+          <div class="threat-num" style="font-size:20px;">見えにくい固定費</div>
+          <div class="threat-label">毎月の外部サービス費用</div>
+          <div class="threat-desc">レポート自動化、データ集計、帳票出力など、便利なサービスが積み上がるほど、固定費と仕様変更への依存も増えていきます。</div>
+        </div>
+        <div class="threat-card">
+          <div class="threat-num" style="font-size:20px;">自社資産として蓄積</div>
+          <div class="threat-label">内製化後のメリット</div>
+          <div class="threat-desc">Claude Codeで作ったツールは自社資産として蓄積される。外部サービスへの依存を減らし、必要に応じて自社で改善できる。</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- quote -->
+    <div class="quote-strip">
+      ChatGPTが出た時、すぐに業務へ取り入れた企業と、<br>
+      様子を見続けた企業の間には、すでに差が生まれています。<em>Claude Codeも、同じ分岐点になり得ます。</em>
+    </div>
+
+    <!-- うちとの違い -->
+    <div>
+      <div class="block-title">よくある研修との違い</div>
+      <div class="diff-row">
+        <div class="diff-no">
+          <div class="diff-head">✗ 一般的なAI研修</div>
+          <div class="diff-item"><span>✗</span><span>「AIとは何か」から始まる座学</span></div>
+          <div class="diff-item"><span>✗</span><span>テンプレのハンズオン演習</span></div>
+          <div class="diff-item"><span>✗</span><span>成果物のないコンサルティング</span></div>
+          <div class="diff-item"><span>✗</span><span>終わりの見えない伴走契約</span></div>
+        </div>
+        <div class="diff-yes">
+          <div class="diff-head">◎ 弊社の伴走</div>
+          <div class="diff-item"><span style="color:var(--red)">◎</span><span>御社の実務をそのままテーマに</span></div>
+          <div class="diff-item"><span style="color:var(--red)">◎</span><span>毎回、動くものを作って終わる</span></div>
+          <div class="diff-item"><span style="color:var(--red)">◎</span><span>期日とゴールを最初に確定</span></div>
+          <div class="diff-item"><span style="color:var(--red)">◎</span><span>内製化できたら伴走終了</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 強み -->
+    <div>
+      <div class="block-title">パチンコ業界に特化できる理由</div>
+      <div class="threat-desc" style="font-size:12px; line-height:1.9;">
+        業界経験豊富なスタッフが対応するため、業務フローや現場の課題をすぐに理解します。<br>
+        「AI担当者に業界を一から説明する」手間なく、御社の現場語で即座に動ける。それが最大の強みです。
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ========== PAGE 2 ========== -->
+<div class="sheet">
+  <div class="p2-head">
+    <div class="p2-head-title">基本プラン：4セッションで内製化体制をつくる</div>
+    <div class="p2-head-sub">コードが書けなくていい。「何を自動化したいか」さえあれば、今日から始められる。</div>
+  </div>
+
+  <div class="p2-body">
+
+    <!-- sessions -->
+    <div>
+      <div class="block-title">セッション内容（各回 約120分）</div>
+      <div class="sessions">
+        <div class="session-card">
+          <div class="session-num">SESSION 01</div>
+          <div class="session-title">現状把握 &amp; セットアップ</div>
+          <div class="session-desc">環境構築、業務棚卸し、自動化テーマの確定</div>
+        </div>
+        <div class="session-card">
+          <div class="session-num">SESSION 02</div>
+          <div class="session-title">実務ツール第一弾 制作</div>
+          <div class="session-desc">テーマに沿って実際に動くツールを完成させる</div>
+        </div>
+        <div class="session-card">
+          <div class="session-num">SESSION 03</div>
+          <div class="session-title">改善 &amp; 応用展開</div>
+          <div class="session-desc">運用課題の改善と次テーマへの展開方法を習得</div>
+        </div>
+        <div class="session-card">
+          <div class="session-num">SESSION 04</div>
+          <div class="session-title">内製化体制の確立</div>
+          <div class="session-desc">社内で自走できる状態を作り、伴走を終了する</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- pricing -->
+    <div>
+      <div class="block-title">料金</div>
+      <div class="pricing-row">
+        <div class="price-main">
+          <div class="price-badge">基本プラン</div>
+          <div class="price-name">4セッション（約120分 × 4回）</div>
+          <div class="price-amount">¥120,000</div>
+          <div class="price-unit">税別 ／ 別途交通費実費</div>
+          <ul class="price-list">
+            <li>1セッション 30,000円（税別）</li>
+            <li>テーマ・スケジュールは事前合意</li>
+            <li>オンライン対応可（交通費不要）</li>
+            <li>追加セッションは都度協議</li>
+          </ul>
+        </div>
+        <div class="price-sub">
+          <div class="price-name">1セッション単位</div>
+          <div class="price-amount">¥30,000</div>
+          <div class="price-unit">税別 ／ 別途交通費実費</div>
+          <ul class="price-list">
+            <li>スポット利用可</li>
+            <li>テーマ事前共有が必須</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- examples -->
+    <div class="example-box">
+      <div class="example-title">▶ 対象業務の例（パチンコ業界特化）</div>
+      <div class="example-text">
+        機種別稼働データの自動集計　／　日次・週次レポートの自動作成　／　撤去機種選定の自動化<br>
+        採用・シフト管理補助　／　顧客向けPOP・帳票の自動生成　／　売上実績の可視化ダッシュボード
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="cta-block">
+      <div>
+        <div class="cta-left-title">まずは、御社で内製化できる業務を<br>整理しませんか。</div>
+        <div class="cta-left-sub">最初の一歩を、実務から一緒に設計します。<br>費用が発生するのは、正式にご依頼をいただいた後です。オンライン対応も可能です。</div>
+      </div>
+      <div class="cta-contact">
+        <div class="cta-co">Trust Link Partner 株式会社</div>
+        <div class="cta-info">
+          <a href="mailto:info@trust-link-ptnr.com" style="color:inherit;text-decoration:none;">info@trust-link-ptnr.com</a><br>
+          <a href="https://www.trust-link-ptnr.com" target="_blank" style="color:inherit;text-decoration:none;">www.trust-link-ptnr.com</a>
+        </div>
+        <div class="cta-note">オンライン対応可</div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="footer2">
+    <span>Trust Link Partner 株式会社</span>
+    <span>© 2026 Trust Link Partner Co., Ltd. · CONFIDENTIAL</span>
+  </div>
+</div>
+
+</body>
+</html>
